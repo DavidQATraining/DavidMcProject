@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+
+{% block body_content %}
+    <h1>Add a fighter</h1>
+
+    <div class="form">
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.f_name.label }}
+                {{ form.f_name }}
+
+                {% if form.f_name.errors %}
+                    <div class="error">
+                        {% for error in form.f_name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                {{ form.l_name.label }}
+                {{ form.l_name }}
+
+                {% if form.l_name.errors %}
+                    <div class="error">
+                        {% for error in form.l_name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                {{ form.age.label }}
+                {{ form.age }}
+
+                {% if form.age.errors %}
+                    <div class="error">
+                        {% for error in form.age.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+            {{ form.weightclass.label }}
+            {{ form.weightclass }}
+
+            {% if form.weightclass.errors %}
+                    <div class="error">
+                        {% for error in form.weightclass.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+            {{ form.record.label }}
+            {{ form.record }}
+
+            {% if form.record.errors %}
+                    <div class="error">
+                        {% for error in form.record.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+            {{ form.lastfive.label }}
+            {{ form.lastfive }}
+
+            {% if form.lastfive.errors %}
+                    <div class="error">
+                        {% for error in form.lastfive.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                {{ form.submit }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

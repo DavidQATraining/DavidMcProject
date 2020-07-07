@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Unknown title</title>
+    {% endif %} <!--we need to end the block if used in html -->
+
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <br>
+        <a href="{{ url_for('about') }}">About</a>
+        <br>
+        <a href="{{ url_for('addfighter') }}">Add Fighter</a>
+    </div>
+    {% block body_content %}{% endblock %}
+</body>
+</html>
