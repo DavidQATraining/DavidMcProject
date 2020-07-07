@@ -60,7 +60,7 @@ def about():
     return render_template('aboutpage.html', title='About')
 
 
-@app.route('/create', methods=['GET', 'POST'])
+@app.route('/add', methods=['GET', 'POST'])
 def create():
     form = FightersForm()
     if form.validate_on_submit():
@@ -83,15 +83,15 @@ def create():
 # DELETE - deletes some data
 # Insert - sends data, but more used for updating
 
-# @app.route('/create')
-# def create():
-#     db.create_all()
-#     post = Posts(f_name='David', l_name='McCartney', title='What teh duhh', content='blah blah blah')
-#     post1 = Posts(f_name='Bavid', l_name='Cartney', title='What teh geez', content='whooh blah blah')
-#     db.session.add(post)
-#     db.session.add(post1)
-#     db.session.commit()
-#     return 'Added the table and populated it with some records'
+@app.route('/create')
+def create():
+    db.create_all()
+    post = Fighters(f_name='David', l_name='McCartney', age=22, content='blah blah blah')
+    post1 = Fighters(f_name='Bavid', l_name='Cartney', title='What teh geez', content='whooh blah blah')
+    db.session.add(post)
+    db.session.add(post1)
+    db.session.commit()
+    return 'Added the table and populated it with some records'
 
 
 @app.route('/delete')
