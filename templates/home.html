@@ -1,16 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block body_content %}
-    <h1>Welcome to MMA stats!</h1>
+
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Weightclass</th>
+            <th>Record</th>
+            <th>Last Five</th>
+        </tr>
+    </table>
 
     {% for post in posts %}
         <div>
-            <!--<h3>{{ post.title }}</h3> -->
-            <p><b>Name: {{ post.f_name }} {{ post.l_name }}</b></p>
-            <p>Age: {{ post.age }}</p>
-            <p>Weightclass: {{ post.weightclass }}</p>
-            <p>Record: {{ post.record }}</p>
-            <p>Last Five: {{ post.lastfive }}</p>
+            <table class="table">
+            <tr class="tableText">
+            <td><p><b>{{ post.f_name }} {{ post.l_name }}</b></p></td>
+            <td style="text-align: left"><p>{{ post.age }}</p></td>
+            <td><p>{{ post.weightclass }}</p></td>
+            <td><p>{{ post.record }}</p></td>
+            <td><p>{{ post.lastfive }}</p></td>
+            </tr>
+            </table>
         </div>
     {% endfor %}
 {% endblock %}

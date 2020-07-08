@@ -7,16 +7,36 @@
     {% else %}
         <title>Unknown title</title>
     {% endif %} <!--we need to end the block if used in html -->
-
+    <style>
+        .table {
+            width: 80%;
+        }
+        .tableText {
+            width: 70%;
+            text-align: -webkit-left;
+        }
+        .form {
+            width: 50%;
+            alignment: right;
+            text-align: right;
+        }
+        .navbar {
+            width: 50%;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+    <h1>Welcome to MMA stats!</h1>
+    <br>
     <div class="navbar">
         <a href="{{ url_for('home') }}">Home</a>
-        <br>
+        &nbsp;
         <a href="{{ url_for('about') }}">About</a>
-        <br>
+        &nbsp;
         <a href="{{ url_for('add') }}">Add Fighter</a>
     </div>
+    <br>
     {% block body_content %}{% endblock %}
 </body>
 </html>

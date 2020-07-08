@@ -52,4 +52,4 @@ class FightersForm(FlaskForm):
         ]
     )
 
-    submit = SubmitField('Make a post')
+    submit = SubmitField('Add a fighter')
