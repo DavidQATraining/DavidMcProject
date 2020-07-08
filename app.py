@@ -3,7 +3,7 @@ from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
-from forms import FightersForm
+from forms import FightersForm, Users
 app = Flask(__name__)
 
 # 2a02:c7f:8ee9:1800:95f3:9430:14e8:cf52     94.11.43.81        my IP
@@ -48,6 +48,18 @@ class Fighters(db.Model):
             ]
         )
 
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    f_name = db.Column(db.String(30), nullable=False)
+    l_name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    password = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return ''.join(['UserID: ', str(self.id), '\r\n', 'Email: ', self.email])
+
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -88,8 +100,10 @@ def create():
     db.create_all()
     fighter = Fighters(f_name='Jorge', l_name='Masvidal', age=35, weightclass='Welterweight', record='35-13-0', lastfive='WWWLL')
     fighter1 = Fighters(f_name='Kamaru', l_name='Usman', age=33, weightclass='Welterweight', record='16-1-0', lastfive='WWWWW')
+    user = Users(f_name='David', l_name='McCartney', email='DavidMc@email.com', password='pass1')
     db.session.add(fighter)
     db.session.add(fighter1)
+    db.session.add(user)
     db.session.commit()
     return 'Added the table and populated it with some records'
 
