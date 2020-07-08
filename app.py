@@ -1,10 +1,17 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, request
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
+from flask_login import login_manager, LoginManager, current_user, login_user, login_required, UserMixin, logout_user
+from flask_bcrypt import Bcrypt
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
-from forms import FightersForm, Users
+from forms import FightersForm, RegistrationForm, LoginForm
+
 app = Flask(__name__)
+login_manager = LoginManager(app)
+bcrypt = Bcrypt(app)
+login_manager.login_view = 'login'
 
 # 2a02:c7f:8ee9:1800:95f3:9430:14e8:cf52     94.11.43.81        my IP
 # 3a617fb3dde7803d7e4513616c2973ee secret key
@@ -40,16 +47,27 @@ class Fighters(db.Model):
         return "".join(
             [
                 'Name: ' + self.f_name + ' ' + self.l_name + '\n'
-                'Age: ' + self.age + '\n'
-                'Weightclass: ' + self.weightclass + '\n'
-                'Record: ' + self.record + '\n'
-                'Last Five: ' + self.age + '\n'
+                                                             'Age: ' + self.age + '\n'
+                                                                                  'Weightclass: ' + self.weightclass + '\n'
+                                                                                                                       'Record: ' + self.record + '\n'
+                                                                                                                                                  'Last Five: ' + self.age + '\n'
 
             ]
         )
 
 
-class Users(db.Model):
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
+
+
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     f_name = db.Column(db.String(30), nullable=False)
     l_name = db.Column(db.String(30), nullable=False)
@@ -58,6 +76,47 @@ class Users(db.Model):
 
     def __repr__(self):
         return ''.join(['UserID: ', str(self.id), '\r\n', 'Email: ', self.email])
+
+
+def validate_email(self, email):
+    user = Users.query.filter_by(email=email.data).first()
+
+    if user:
+        raise ValidationError('Email already in use')
+
+
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = Users.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect(url_for('home'))
+    return render_template('login.html', title='Login', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hash_pw = bcrypt.generate_password_hash(form.password.data)
+
+        user = Users(f_name=form.f_name.data, l_name=form.l_name.data, email=form.email.data, password=hash_pw)
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('home'))
+    return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/')
@@ -73,6 +132,7 @@ def about():
 
 
 @app.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     form = FightersForm()
     if form.validate_on_submit():
@@ -90,6 +150,7 @@ def add():
     else:
         return render_template('addfighter.html', title='Add a fighter', form=form)
 
+
 # GET - which displays data
 # POST - which sends data from website to application
 # DELETE - deletes some data
@@ -98,8 +159,10 @@ def add():
 @app.route('/create')
 def create():
     db.create_all()
-    fighter = Fighters(f_name='Jorge', l_name='Masvidal', age=35, weightclass='Welterweight', record='35-13-0', lastfive='WWWLL')
-    fighter1 = Fighters(f_name='Kamaru', l_name='Usman', age=33, weightclass='Welterweight', record='16-1-0', lastfive='WWWWW')
+    fighter = Fighters(f_name='Jorge', l_name='Masvidal', age=35, weightclass='Welterweight', record='35-13-0',
+                       lastfive='WWWLL')
+    fighter1 = Fighters(f_name='Kamaru', l_name='Usman', age=33, weightclass='Welterweight', record='16-1-0',
+                        lastfive='WWWWW')
     user = Users(f_name='David', l_name='McCartney', email='DavidMc@email.com', password='pass1')
     db.session.add(fighter)
     db.session.add(fighter1)
@@ -118,7 +181,3 @@ def delete():
 
 if __name__ == '__main__':
     app.run()
-
-
-
-
