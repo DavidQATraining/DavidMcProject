@@ -6,12 +6,11 @@
     {% for post in posts %}
         <div>
             <!--<h3>{{ post.title }}</h3> -->
-            <p><b>First name: {{ post.f_name }}</b></p>
-            <p><b>Last name: {{ post.l_name }}</b></p>
-            <p>{{ post.age }}</p>
-            <p>{{ post.weightclass }}</p>
-            <p>{{ post.record }}</p>
-            <p>{{ post.lastfive }}</p>
+            <p><b>Name: {{ post.f_name }} {{ post.l_name }}</b></p>
+            <p>Age: {{ post.age }}</p>
+            <p>Weightclass: {{ post.weightclass }}</p>
+            <p>Record: {{ post.record }}</p>
+            <p>Last Five: {{ post.lastfive }}</p>
         </div>
     {% endfor %}
 {% endblock %}

@@ -52,7 +52,7 @@ class Fighters(db.Model):
 @app.route('/home')
 def home():
     post_data = Fighters.query.all()
-    return render_template('homepage.html', title='Homepage', posts=post_data)
+    return render_template('home.html', title='Homepage', posts=post_data)
 
 
 @app.route('/about')
@@ -61,7 +61,7 @@ def about():
 
 
 @app.route('/add', methods=['GET', 'POST'])
-def create():
+def add():
     form = FightersForm()
     if form.validate_on_submit():
         post_data = Fighters(
@@ -76,7 +76,7 @@ def create():
         db.session.commit()
         return redirect(url_for('home'))
     else:
-        return render_template('create.html', title='Create a thing', form=form)
+        return render_template('addfighter.html', title='Add a fighter', form=form)
 
 # GET - which displays data
 # POST - which sends data from website to application
@@ -86,10 +86,10 @@ def create():
 @app.route('/create')
 def create():
     db.create_all()
-    post = Fighters(f_name='David', l_name='McCartney', age=22, content='blah blah blah')
-    post1 = Fighters(f_name='Bavid', l_name='Cartney', title='What teh geez', content='whooh blah blah')
-    db.session.add(post)
-    db.session.add(post1)
+    fighter = Fighters(f_name='Jorge', l_name='Masvidal', age=35, weightclass='Welterweight', record='35-13-0', lastfive='WWWLL')
+    fighter1 = Fighters(f_name='Kamaru', l_name='Usman', age=33, weightclass='Welterweight', record='16-1-0', lastfive='WWWWW')
+    db.session.add(fighter)
+    db.session.add(fighter1)
     db.session.commit()
     return 'Added the table and populated it with some records'
 

@@ -24,7 +24,7 @@ class FightersForm(FlaskForm):
         'Age',
         validators=[
             DataRequired(),
-            Length(min=4, max=100)
+            Length(min=2, max=100)
         ]
     )
 
@@ -44,7 +44,7 @@ class FightersForm(FlaskForm):
         ]
     )
 
-    lasfive = StringField(
+    lastfive = StringField(
         'Last Five',
         validators=[
             DataRequired(),
