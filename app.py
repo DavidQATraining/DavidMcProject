@@ -7,7 +7,7 @@ from flask_bcrypt import Bcrypt
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from datetime import datetime
 
-from forms import FightersForm, RegistrationForm, LoginForm
+from forms import FightersForm, RegistrationForm, LoginForm, UpdateFighterForm, UpdateAccountForm
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
@@ -89,8 +89,6 @@ def validate_email(self, email):
         raise ValidationError('Email already in use')
 
 
-
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -115,7 +113,10 @@ def register():
     if form.validate_on_submit():
         hash_pw = bcrypt.generate_password_hash(form.password.data)
 
-        user = Users(f_name=form.f_name.data, l_name=form.l_name.data, email=form.email.data, password=hash_pw)
+        user = Users(f_name=form.f_name.data,
+                     l_name=form.l_name.data,
+                     email=form.email.data,
+                     password=hash_pw)
 
         db.session.add(user)
         db.session.commit()
@@ -123,6 +124,23 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
     #return redirect(url_for('home'))
+
+
+@app.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.f_name = form.f_name.data
+        current_user.l_name = form.l_name.data
+        current_user.email = form.email.data
+        db.session.commit()
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.f_name.data = current_user.f_name
+        form.l_name.data = current_user.l_name
+        form.email.data = current_user.email
+    return render_template('account.html', title='Account', form=form)
 
 
 @app.route('/')
@@ -158,6 +176,27 @@ def add():
     else:
         return render_template('addfighter.html', title='Add a fighter', form=form)
 
+@app.route('/updateFighter', methods=['GET', 'POST'])
+@login_required
+def updateFighter():
+    form = UpdateFighterForm()
+    if form.validate_on_submit():
+        Fighters.f_name = form.first_name.data
+        Fighters.l_name = form.last_name.data
+        Fighters.age = form.last_name.data
+        Fighters.weightclass = form.last_name.data
+        Fighters.record = form.last_name.data
+        Fighters.lastfive = form.email.data
+        db.session.commit()
+        return redirect(url_for('updateFighter'))
+    elif request.method == 'GET':
+        form.f_name.data = Fighters.f_name
+        form.l_name.data = Fighters.l_name
+        form.age.data = Fighters.age
+        form.weightclass.data = Fighters.weightclass
+        form.record.data = Fighters.record
+        form.lastfive.data = Fighters.lastfive
+    return render_template('updateFighter.html', title='Update Fighter', form=form)
 
 # GET - which displays data
 # POST - which sends data from website to application

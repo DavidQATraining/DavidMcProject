@@ -63,6 +63,33 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
 
+class UpdateAccountForm(FlaskForm):
+    f_name = StringField(
+        'First name',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    l_name = StringField(
+        'Last name',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(),
+            Email()
+        ]
+    )
+    submit = SubmitField('Update Account')
+
+
 class FightersForm(FlaskForm):
     f_name = StringField(
         'First name',
@@ -113,3 +140,56 @@ class FightersForm(FlaskForm):
     )
 
     submit = SubmitField('Add a fighter')
+
+
+class UpdateFighterForm(FlaskForm):
+
+    f_name = StringField(
+        'First name',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    l_name = StringField(
+        'Last name',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    age = StringField(
+        'Age',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=100)
+        ]
+    )
+
+    weightclass = StringField(
+        'Weightclass',
+        validators=[
+            DataRequired(),
+            Length(min=4, max=300)
+        ]
+    )
+
+    record = StringField(
+        'Record',
+        validators=[
+            DataRequired(),
+            Length(min=4, max=300)
+        ]
+    )
+
+    lastfive = StringField(
+        'Last Five',
+        validators=[
+            DataRequired(),
+            Length(min=4, max=300)
+        ]
+    )
+
+    submit = SubmitField('Update fighter')
