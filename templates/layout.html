@@ -36,9 +36,8 @@
         <a href="{{ url_for('about') }}">About</a>
         &nbsp;
         <a href="{{ url_for('add') }}">Add Fighter</a>
-        &nbsp;
-        <a style="display: none" href="{{ url_for('register') }}">Register User</a>
-        <br>
+        &nbsp;&nbsp;
+        <p>User: {{ current_user.f_name }} {{ current_user.l_name }}</p>
         <br>
          <a  href="{{ url_for('logout') }}">Log out</a>
         {% else %}
