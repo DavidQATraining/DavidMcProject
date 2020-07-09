@@ -71,6 +71,7 @@ def load_user(id):
 
 
 class Users(db.Model, UserMixin):
+
     id = db.Column(db.Integer, primary_key=True)
     f_name = db.Column(db.String(30), nullable=False)
     l_name = db.Column(db.String(30), nullable=False)
@@ -148,11 +149,10 @@ def account():
 def account_delete():
     user = current_user.id
     account1 = Users.query.filter_by(id=user).first()
-    fightersdelete = Fighters.query.filter_by(user_id=user).first()
+    fightersdelete = Fighters.__table__.delete().where(Fighters.user_id == current_user.id)
     logout_user()
     db.session.delete(account1)
-    db.session.delete(fightersdelete)
-    #db.execute('delete from fighters where user_id = ?'[Users.get_id(current_user)])
+    db.session.execute(fightersdelete)
     db.session.commit()
     return redirect(url_for('home'))
 
