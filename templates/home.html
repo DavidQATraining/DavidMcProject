@@ -17,14 +17,19 @@
     {% for post in posts %}
         <div>
             <table class="table">
-            <tr class="tableText">
-            <td><p><b>{{ post.f_name }} {{ post.l_name }}</b></p></td>
-            <td style="text-align: left"><p>{{ post.age }}</p></td>
-            <td><p>{{ post.weightclass }}</p></td>
-            <td><p>{{ post.record }}</p></td>
-            <td><p>{{ post.lastfive }}</p></td>
-            <td><p>{{ post.author.f_name }} {{ post.author.l_name }}</p></td>
-            </tr>
+                <tr class="tableText">
+                    <td><p><b>{{ post.f_name }} {{ post.l_name }}</b></p></td>
+                    <td style="text-align: left"><p>{{ post.age }}</p></td>
+                    <td><p>{{ post.weightclass }}</p></td>
+                    <td><p>{{ post.record }}</p></td>
+                    <td><p>{{ post.lastfive }}</p></td>
+                    <td><p>{{ post.author.f_name }} {{ post.author.l_name }}</p></td>
+{#                    <td>#}
+{#                        <form action="{{ url_for('updateFighter', id) }}">#}
+{#                            <button>Update</button>#}
+{#                        </form>#}
+{#                    </td>#}
+                </tr>
             </table>
         </div>
     {% endfor %}
