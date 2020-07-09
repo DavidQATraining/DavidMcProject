@@ -121,8 +121,8 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('home'))
-    return render_template('login.html', title='Register', form=form)
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
     #return redirect(url_for('home'))
 
 
