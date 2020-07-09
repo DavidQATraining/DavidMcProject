@@ -135,7 +135,7 @@ def account():
         current_user.l_name = form.l_name.data
         current_user.email = form.email.data
         db.session.commit()
-        return redirect(url_for('account'))
+        return redirect(url_for('home'))
     elif request.method == 'GET':
         form.f_name.data = current_user.f_name
         form.l_name.data = current_user.l_name
