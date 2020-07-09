@@ -22,6 +22,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+
 class RegistrationForm(FlaskForm):
     f_name = StringField(
         'First name',

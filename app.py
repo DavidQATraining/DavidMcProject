@@ -5,6 +5,7 @@ from os import environ
 from flask_login import login_manager, LoginManager, current_user, login_user, login_required, UserMixin, logout_user
 from flask_bcrypt import Bcrypt
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from datetime import datetime
 
 from forms import FightersForm, RegistrationForm, LoginForm
 
@@ -42,15 +43,17 @@ class Fighters(db.Model):
     weightclass = db.Column(db.String(20), nullable=False)
     record = db.Column(db.String(8), nullable=False)
     lastfive = db.Column(db.String(5), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
         return "".join(
             [
                 'Name: ' + self.f_name + ' ' + self.l_name + '\n'
-                                                             'Age: ' + self.age + '\n'
-                                                                                  'Weightclass: ' + self.weightclass + '\n'
-                                                                                                                       'Record: ' + self.record + '\n'
-                                                                                                                                                  'Last Five: ' + self.age + '\n'
+                'Age: ' + self.age + '\n'
+                'Weightclass: ' + self.weightclass + '\n'
+                'Record: ' + self.record + '\n'
+                'Last Five: ' + self.age + '\n'
 
             ]
         )
@@ -73,6 +76,7 @@ class Users(db.Model, UserMixin):
     l_name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
+    fighters = db.relationship('Fighters', backref='author', lazy=True)
 
     def __repr__(self):
         return ''.join(['UserID: ', str(self.id), '\r\n', 'Email: ', self.email])
@@ -107,16 +111,18 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
-    if form.validate_on_submit():
-        hash_pw = bcrypt.generate_password_hash(form.password.data)
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            hash_pw = bcrypt.generate_password_hash(form.password.data)
 
-        user = Users(f_name=form.f_name.data, l_name=form.l_name.data, email=form.email.data, password=hash_pw)
+            user = Users(f_name=form.f_name.data, l_name=form.l_name.data, email=form.email.data, password=hash_pw)
 
-        db.session.add(user)
-        db.session.commit()
+            db.session.add(user)
+            db.session.commit()
 
-        return redirect(url_for('home'))
-    return render_template('register.html', title='Register', form=form)
+            return redirect(url_for('home'))
+        return render_template('register.html', title='Register', form=form)
+    return redirect(url_for('home'))
 
 
 @app.route('/')
@@ -135,6 +141,7 @@ def about():
 @login_required
 def add():
     form = FightersForm()
+
     if form.validate_on_submit():
         post_data = Fighters(
             f_name=form.f_name.data,
@@ -156,17 +163,26 @@ def add():
 # DELETE - deletes some data
 # Insert - sends data, but more used for updating
 
-@app.route('/create')
-def create():
+@app.route('/createFighter')
+def createFighter():
     db.create_all()
     fighter = Fighters(f_name='Jorge', l_name='Masvidal', age=35, weightclass='Welterweight', record='35-13-0',
-                       lastfive='WWWLL')
+                       lastfive='WWWLL', user_id=1)
     fighter1 = Fighters(f_name='Kamaru', l_name='Usman', age=33, weightclass='Welterweight', record='16-1-0',
-                        lastfive='WWWWW')
-    user = Users(f_name='David', l_name='McCartney', email='DavidMc@email.com', password='pass1')
+                        lastfive='WWWWW', user_id=1)
     db.session.add(fighter)
     db.session.add(fighter1)
+
+    db.session.commit()
+    return 'Added the table and populated it with some records'
+
+
+@app.route('/createUser')
+def createUser():
+    db.create_all()
+    user = Users(f_name='David', l_name='McCartney', email='DavidMc@email.com', password='pass1')
     db.session.add(user)
+
     db.session.commit()
     return 'Added the table and populated it with some records'
 

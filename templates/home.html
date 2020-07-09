@@ -5,11 +5,12 @@
 
     <table class="table">
         <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Weightclass</th>
-            <th>Record</th>
-            <th>Last Five</th>
+            <th>Name</th>&nbsp;
+            <th>Age</th>&nbsp;
+            <th>Weightclass</th>&nbsp;
+            <th>Record</th>&nbsp;
+            <th>Last Five</th>&nbsp;
+            <th>Added By</th>&nbsp;
         </tr>
     </table>
 
@@ -22,6 +23,7 @@
             <td><p>{{ post.weightclass }}</p></td>
             <td><p>{{ post.record }}</p></td>
             <td><p>{{ post.lastfive }}</p></td>
+            <td><p>{{ post.author.f_name }} {{ post.author.l_name }}</p></td>
             </tr>
             </table>
         </div>
