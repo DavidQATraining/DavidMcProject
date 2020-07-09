@@ -143,6 +143,20 @@ def account():
     return render_template('account.html', title='Account', form=form)
 
 
+@app.route("/account/delete", methods=["GET", "POST", "DELETE"])
+@login_required
+def account_delete():
+    user = current_user.id
+    account1 = Users.query.filter_by(id=user).first()
+    fightersdelete = Fighters.query.filter_by(user_id=user).first()
+    logout_user()
+    db.session.delete(account1)
+    db.session.delete(fightersdelete)
+    #db.execute('delete from fighters where user_id = ?'[Users.get_id(current_user)])
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
 @app.route('/')
 @app.route('/home')
 def home():
