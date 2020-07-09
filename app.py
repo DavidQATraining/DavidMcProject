@@ -18,7 +18,6 @@ login_manager.login_view = 'login'
 # 3a617fb3dde7803d7e4513616c2973ee secret key
 
 
-# make more secure
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + \
                                         environ.get('MYSQL_USER') + \
