@@ -195,14 +195,13 @@ def add():
 def updateFighter(up):
     form = UpdateFighterForm()
     fightersupdate = Fighters.query.filter_by(id=up).first()
-    # fightersupdate = Fighters.__table__.filter_by().where(Fighters.id == up.id)
     if form.validate_on_submit():
-        Fighters.f_name = form.f_name.data
-        Fighters.l_name = form.l_name.data
-        Fighters.age = form.age.data
-        Fighters.weightclass = form.weightclass.data
-        Fighters.record = form.record.data
-        Fighters.lastfive = form.lastfive.data
+        fightersupdate.f_name = form.f_name.data
+        fightersupdate.l_name = form.l_name.data
+        fightersupdate.age = form.age.data
+        fightersupdate.weightclass = form.weightclass.data
+        fightersupdate.record = form.record.data
+        fightersupdate.lastfive = form.lastfive.data
         db.session.commit()
         return redirect(url_for('home'))
     elif request.method == 'GET':
@@ -218,6 +217,7 @@ def updateFighter(up):
 # POST - which sends data from website to application
 # DELETE - deletes some data
 # Insert - sends data, but more used for updating
+
 
 @app.route('/createFighter')
 def createFighter():
