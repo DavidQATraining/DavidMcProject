@@ -7,13 +7,18 @@
     {% else %}
         <title>Unknown title</title>
     {% endif %} <!--we need to end the block if used in html -->
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@200;500&display=swap" rel="stylesheet">
     <style>
         .table {
             width: 80%;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
         }
         .tableText {
             width: 70%;
             text-align: -webkit-left;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
         }
         .form {
             width: 50%;
@@ -21,13 +26,21 @@
             text-align: right;
         }
         .navbar {
-            width: 50%;
+            width: 100%;
             text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bolder;
+            background-color: cadetblue;
+        }
+        .mainheader {
+            font-family: 'Bangers', cursive;
+            font-weight: bolder;
+            font-size: xx-large;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to MMA stats!</h1>
+    <h1 class="mainheader">Welcome to MMA stats!</h1>
     <br>
     <div class="navbar">
         {% if current_user.is_authenticated == True %}

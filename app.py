@@ -189,6 +189,7 @@ def add():
     else:
         return render_template('addfighter.html', title='Add a fighter', form=form)
 
+
 @app.route('/updateFighter', methods=['GET', 'POST'])
 @login_required
 def updateFighter():
