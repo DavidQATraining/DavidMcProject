@@ -28,7 +28,13 @@
                         </form>
                       {% endif %}
                     </td>
-
+                    <td>
+                      {% if current_user.is_authenticated == True %}
+                        <form action="{{ url_for('deleteFighter', delete=Fighters.id) }}">
+                            <button onclick="return confirm('Are you sure you want to Delete Fighter?');" type="submit">Delete</button>
+                        </form>
+                      {% endif %}
+                    </td>
                 </tr>
 
             {% endfor %}

@@ -213,6 +213,16 @@ def updateFighter(up):
         form.lastfive.data = fightersupdate.lastfive
     return render_template('updateFighter.html', title='Update Fighter', form=form)
 
+
+@app.route('/deleteFighter/<int:delete>', methods=["GET", "POST", "DELETE"])
+@login_required
+def deleteFighter(delete):
+    fighter = Fighters.query.filter_by(id=delete).first()
+    fightersdelete = Fighters.__table__.delete().where(Fighters.id == fighter.id)
+    db.session.execute(fightersdelete)
+    db.session.commit()
+    return redirect(url_for('home'))
+
 # GET - which displays data
 # POST - which sends data from website to application
 # DELETE - deletes some data
