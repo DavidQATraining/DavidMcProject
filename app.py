@@ -160,7 +160,7 @@ def account_delete():
 @app.route('/home')
 def home():
     post_data = Fighters.query.all()
-    return render_template('home.html', title='Homepage', posts=post_data)
+    return render_template('home.html', title='Homepage', fighter=post_data)
 
 
 @app.route('/about')
@@ -190,26 +190,28 @@ def add():
         return render_template('addfighter.html', title='Add a fighter', form=form)
 
 
-@app.route('/updateFighter', methods=['GET', 'POST'])
+@app.route('/updateFighter/<int:up>', methods=['GET', 'POST'])
 @login_required
-def updateFighter():
+def updateFighter(up):
     form = UpdateFighterForm()
+    fightersupdate = Fighters.query.filter_by(id=up).first()
+    # fightersupdate = Fighters.__table__.filter_by().where(Fighters.id == up.id)
     if form.validate_on_submit():
-        Fighters.f_name = form.first_name.data
-        Fighters.l_name = form.last_name.data
-        Fighters.age = form.last_name.data
-        Fighters.weightclass = form.last_name.data
-        Fighters.record = form.last_name.data
-        Fighters.lastfive = form.email.data
+        Fighters.f_name = form.f_name.data
+        Fighters.l_name = form.l_name.data
+        Fighters.age = form.age.data
+        Fighters.weightclass = form.weightclass.data
+        Fighters.record = form.record.data
+        Fighters.lastfive = form.lastfive.data
         db.session.commit()
-        return redirect(url_for('updateFighter'))
+        return redirect(url_for('home'))
     elif request.method == 'GET':
-        form.f_name.data = Fighters.f_name
-        form.l_name.data = Fighters.l_name
-        form.age.data = Fighters.age
-        form.weightclass.data = Fighters.weightclass
-        form.record.data = Fighters.record
-        form.lastfive.data = Fighters.lastfive
+        form.f_name.data = fightersupdate.f_name
+        form.l_name.data = fightersupdate.l_name
+        form.age.data = fightersupdate.age
+        form.weightclass.data = fightersupdate.weightclass
+        form.record.data = fightersupdate.record
+        form.lastfive.data = fightersupdate.lastfive
     return render_template('updateFighter.html', title='Update Fighter', form=form)
 
 # GET - which displays data
@@ -220,10 +222,19 @@ def updateFighter():
 @app.route('/createFighter')
 def createFighter():
     db.create_all()
-    fighter = Fighters(f_name='Jorge', l_name='Masvidal', age=35, weightclass='Welterweight', record='35-13-0',
+    fighter = Fighters(f_name='Jorge',
+                       l_name='Masvidal',
+                       age=35,
+                       weightclass='Welterweight',
+                       record='35-13-0',
                        lastfive='WWWLL', user_id=1)
-    fighter1 = Fighters(f_name='Kamaru', l_name='Usman', age=33, weightclass='Welterweight', record='16-1-0',
-                        lastfive='WWWWW', user_id=1)
+    fighter1 = Fighters(f_name='Kamaru',
+                        l_name='Usman',
+                        age=33,
+                        weightclass='Welterweight',
+                        record='16-1-0',
+                        lastfive='WWWWW',
+                        user_id=1)
     db.session.add(fighter)
     db.session.add(fighter1)
 

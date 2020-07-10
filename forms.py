@@ -127,7 +127,7 @@ class FightersForm(FlaskForm):
         'Record',
         validators=[
             DataRequired(),
-            Length(min=7, max=9)
+            Length(min=5, max=9)
         ]
     )
 

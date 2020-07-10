@@ -2,33 +2,36 @@
 
 {% block body_content %}
 
-
-    <table class="table">
-        <tr>
-            <th>Name</th>&nbsp;
-            <th>Age</th>&nbsp;
-            <th>Weightclass</th>&nbsp;
-            <th>Record</th>&nbsp;
-            <th>Last Five</th>&nbsp;
-            <th>Added By</th>&nbsp;
-        </tr>
-
-        {% for post in posts %}
-            <tr class="tableText">
-                <td><p><b>{{ post.f_name }} {{ post.l_name }}</b></p></td>
-                <td><p>{{ post.age }}</p></td>
-                <td><p>{{ post.weightclass }}</p></td>
-                <td><p>{{ post.record }}</p></td>
-                <td><p>{{ post.lastfive }}</p></td>
-                <td><p>{{ post.author.f_name }} {{ post.author.l_name }}</p></td>
-                {#                    <td>#}
-                {#                        <form action="{{ url_for('updateFighter', id) }}">#}
-                {#                            <button>Update</button>#}
-                {#                        </form>#}
-                {#                    </td>#}
+    <div>
+        <table class="table">
+            <tr>
+                <th>Name</th>&nbsp;
+                <th>Age</th>&nbsp;
+                <th>Weightclass</th>&nbsp;
+                <th>Record</th>&nbsp;
+                <th>Last Five</th>&nbsp;
+                <th>Added By</th>&nbsp;
             </tr>
-            </div>
-        {% endfor %}
-    </table>
 
+            {% for Fighters in fighter %}
+                <tr class="tableText">
+                    <td><p><b>{{ Fighters.f_name }} {{ Fighters.l_name }}</b></p></td>
+                    <td><p>{{ Fighters.age }}</p></td>
+                    <td><p>{{ Fighters.weightclass }}</p></td>
+                    <td><p>{{ Fighters.record }}</p></td>
+                    <td><p>{{ Fighters.lastfive }}</p></td>
+                    <td><p>{{ Fighters.author.f_name }} {{ Fighters.author.l_name }}</p></td>
+                    <td>
+                      {% if current_user.is_authenticated == True %}
+                        <form action="{{ url_for('updateFighter', up=Fighters.id) }}">
+                            <button type="submit">Update</button>
+                        </form>
+                      {% endif %}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
