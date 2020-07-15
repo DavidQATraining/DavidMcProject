@@ -3,7 +3,7 @@
 
 ### Resources
 * Trello: https://trello.com/b/AffqoFeG/project-board
-* Website: tbc
+* Website: http://35.202.208.34/
 
 ### Contents
 * Brief
