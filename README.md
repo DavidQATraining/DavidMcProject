@@ -51,6 +51,7 @@ update and delete fighters from the database.
 ## Data 
 Here is the entity relationship diagram outlining the fields in each table and the relationships between them.
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/wwJ19zP/project-ERD.png" alt="project-ERD" border="0" /></a>
+
 Here you see the Users one to many relationship with Fighters where one user can add many fighters. You can also see the future functionality of the many to many relationship where users have many fighters 
 in their favourites and fighters can belong to many users favourites.
 
