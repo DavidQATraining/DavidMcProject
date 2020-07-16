@@ -12,7 +12,6 @@
 * Data
 * Tech Stack
 * CI Pipeline
-* Testing
 * Front-End Design
 * Risk Assessment
 * Difficulties and Lessons learned
