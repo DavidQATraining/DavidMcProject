@@ -3,7 +3,7 @@
 
 ### Resources
 * Trello: https://trello.com/b/AffqoFeG/project-board
-* Website: http://35.202.208.34/
+* Website: http://35.197.208.121/
 
 ### Contents
 * Brief
@@ -28,53 +28,73 @@ Using Flask and Python I was tasked with creating a web application that could c
 update and delete fighters from the database. 
 
 ## Minimum Requirements
-* Use a project management/tracking tool for user stories and MoSCoW prioritisation such as trello or 
+* Use a project management/tracking tool for user stories and MoSCoW prioritisation, such as trello or Jira.
+* Design a relational database with a minimum of one relationship across two tables.
+* Provide documentation.
+* A functioning CRUD web application written in python that follows best programming practices learned in coursework
+* Integration between VCS(version control system), CI server and cloud based VM so that code pushes are build automatically.
 
-`this is a code example, dark background :)`
+## Functionality
+ The project I came up with was an MMA stats webapp that was usr driven and kept upto date stats on all fighters. Users would be able to add fighters to the database, edit a fighters stats and delete a 
+ fighter from the database in the event they retired. The plan was to also allow users to have a personal list of their favourite fighters but time constraints meant this found its way to the back of the 
+ product backlog and planned to be implemented in the future.
+ 
+ The min requirements from the brief where satisfied with the following user stories:
+ * As a user I must be able to create and account with the following. First and last name, email address and password(which would be hashed for encryption).
+ * As a user I must be able to CREATE one to many fighter entries. This creates the relationship between Users and Fighters using a one to many relationship.
+ * As a user I must be able to READ all fighter entries.
+ * As a user I must be able to UPDATE a fighters entry with up-to-date statistics.
+ * As a user I must be able to DELETE a fighters entry in the event they retire. 
+ 
+ Here are the screen grabs of my Trello board detailing all users stories following MoSCoW prioritisation.
+ <a href="https://ibb.co/YQWsJnR"><img src="https://i.ibb.co/vqBnfyw/trello-board.png" alt="trello-board" border="0" /></a>
 
-```python
-print("Hello")
-```
+## Data 
+Here is the entity relationship diagram outlining the fields in each table and the relationships between them.
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/wwJ19zP/project-ERD.png" alt="project-ERD" border="0" /></a>
+Here you see the Users one to many relationship with Fighters where one user can add many fighters. You can also see the future functionality of the many to many relationship where users have many fighters 
+in their favourites and fighters can belong to many users favourites.
 
-**This is bold test**
+## Tech Stack
+* Project management/tracking: Trello.
+* Database: GCP SQL Server using mySQL
+* Backend: Python
+* Frontend: Flask
+* VCS: Github
+* CI Server: Jenkins
+* Run on Linux VM using GCP.
 
-~~This is how you do a strikethrough~~
+## CI Pipeline
+<a href="https://ibb.co/SPYj8Sd"><img src="https://i.ibb.co/L8jFWKJ/CI-Pipeline.png" alt="CI-Pipeline" border="0" /></a>
+* The web app is programmed in python and flask using pycharm.
+* Changes are then pushed to the github repository where all changes are recorded and documented.
+* After a successful change has been made and functionality met this is reflected in the Trello boards.
+* When a push happens it triggers jenkins to build the live app again automatically so the changes are seen in the browser after a few moments.
 
-_This is italic text example_
+## Front-end Design
 
-**_This is bold and italic_**
+Here you can see my initial wire frame design and thoughts about how I wanted the web app to look. The current build is underneath, as you can see the design isn't there yet but is planned for future iterations.
+<a href="https://ibb.co/RczGFJD"><img src="https://i.ibb.co/sqypfXV/wireframe-screeny.png" alt="wireframe-screeny" border="0" /></a>
+<a href="https://ibb.co/jz5vvd2"><img src="https://i.ibb.co/T1TBBZS/website-screen-grabs.png" alt="website-screen-grabs" border="0" /></a>
 
-**_~~This is italic bold strikethrough~~_**
+## Risk Assessment
+<a href="https://ibb.co/w63vDQJ"><img src="https://i.ibb.co/C0Nrx9J/risk.png" alt="risk" border="0" /></a>
 
-* listy boy
-    * indented listy boy
-    
-- dashes are also used for listy boys
-    * you can use both in combo
-    
-1. numbered listy boy
-    2. for yer i listy bad boys
-        3. it changes format for
-        
-<br>
-<br>
-<br>
+## Difficulties and Lessons Learned
+The difficulties I faced completing the brief came mainly from technologies I hadn't used before. I hadn't used a VCS, linux or programmed in python before this project and new what I wanted to do but had to get over 
+the barrier of learning how these technologies operated. Linux was difficult for me at teh beginning as I had no experience working with, after I started to grasp the ideas of it though I felt myself make real progress.
 
-`
-<br>
-`
+I had also never used Github before and that was a hurdle I had to get over, now I feel comfortable using it I can see the flexibility and robustness it adds to the software development process.
 
-<img align="left" width="100" height="100" src="https://s3.amazonaws.com/spectrumnews-web-assets/wp-content/uploads/2018/11/13154625/20181112-SHANK3monkey-844.jpg">
+As with learning anything in the theory phase it can often be hard to conceptualise ideas such as the CI pipeline. Having now dipped my toe and seen through my project how the individual aspect of devops join together it 
+has given me an deeper understanding and some context for the ideas learned in the coursework.
 
-| Column1     | Column2     |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+## Future Improvements
+The improvements I will add to the website are going to include:
+* Addition of User Favourites table and functionality allowing users to see their favourite fighters stats only.
+* Search system to search for a fighter using their name.
+* Filter system allowing for filtering of fighters based on weightclass, record etc.
+* Addition of Gym table allowing users to see where fighters train and all fighters housed at specific gyms.
 
-[This is a hyper link](http://www.google.com)
-
-
-My favourite food:  
-![egg](https://qa-courseware-images.s3.eu-west-2.amazonaws.com/markdown/links_images/000.jpeg)
-
-making changes
+## Author
+David McCartney
