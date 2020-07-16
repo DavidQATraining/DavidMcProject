@@ -97,4 +97,4 @@ The improvements I will add to the website are going to include:
 * Addition of Gym table allowing users to see where fighters train and all fighters housed at specific gyms.
 
 ## Author
-David McCartney
+David McCartney 
