@@ -35,7 +35,8 @@ update and delete fighters from the database.
 ## Functionality
  The project I came up with was an MMA stats webapp that was user driven and kept upto date stats on all fighters. Users would be able to add fighters to the database, edit a fighters stats and delete a 
  fighter from the database in the event they retired. The plan was to also allow users to have a personal list of their favourite fighters but time constraints meant this found its way to the back of the 
- product backlog and planned to be implemented in the future.
+ product backlog and planned to be implemented in the future. I chose an MMA stats website as I am a huge MMA fan, and follow all the organisations from UFC to ONE championship. I think my love started when
+ my dad took me to a muay thai events as a teenager. 
  
  The min requirements from the brief where satisfied with the following user stories:
  * As a user I must be able to create and account with the following. First and last name, email address and password(which would be hashed for encryption).
@@ -49,7 +50,7 @@ update and delete fighters from the database.
 
 ## Data 
 Here is the entity relationship diagram outlining the fields in each table and the relationships between them.
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/wwJ19zP/project-ERD.png" alt="project-ERD" border="0" /></a>
+<a href="https://ibb.co/TqgJwMf"><img src="https://i.ibb.co/G35GdQ6/project-ERD.png" alt="project-ERD" border="0" /></a>
 
 Here you see the Users one to many relationship with Fighters where one user can add many fighters. You can also see the future functionality of the many to many relationship where users have many fighters 
 in their favourites and fighters can belong to many users favourites.
@@ -74,8 +75,7 @@ in their favourites and fighters can belong to many users favourites.
 
 Here you can see my initial wire frame design and thoughts about how I wanted the web app to look. The current build is underneath, as you can see the design isn't there yet but is planned for future iterations.
 <a href="https://ibb.co/RczGFJD"><img src="https://i.ibb.co/sqypfXV/wireframe-screeny.png" alt="wireframe-screeny" border="0" /></a>
-<a href="https://ibb.co/jz5vvd2"><img src="https://i.ibb.co/T1TBBZS/website-screen-grabs.png" alt="website-screen-grabs" border="0" /></a>
-
+<a href="https://ibb.co/gZyMW5M"><img src="https://i.ibb.co/VYVWC7W/website-screen-grabs.png" alt="website-screen-grabs" border="0" /></a>
 ## Risk Assessment
 <a href="https://ibb.co/w63vDQJ"><img src="https://i.ibb.co/C0Nrx9J/risk.png" alt="risk" border="0" /></a>
 
