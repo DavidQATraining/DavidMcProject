@@ -33,7 +33,7 @@ update and delete fighters from the database.
 * Integration between VCS(version control system), CI server and cloud based VM so that code pushes are build automatically.
 
 ## Functionality
- The project I came up with was an MMA stats webapp that was usr driven and kept upto date stats on all fighters. Users would be able to add fighters to the database, edit a fighters stats and delete a 
+ The project I came up with was an MMA stats webapp that was user driven and kept upto date stats on all fighters. Users would be able to add fighters to the database, edit a fighters stats and delete a 
  fighter from the database in the event they retired. The plan was to also allow users to have a personal list of their favourite fighters but time constraints meant this found its way to the back of the 
  product backlog and planned to be implemented in the future.
  
